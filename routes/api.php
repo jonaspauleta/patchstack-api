@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FactorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VulnerabilityController;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', UserController::class)->name('user');
 
     Route::apiResource('/vulnerabilities', VulnerabilityController::class);
+    Route::apiResource('/vulnerabilities/{vulnerability}/factors', FactorController::class);
 });

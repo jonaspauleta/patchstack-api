@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Vulnerability;
+namespace App\Http\Requests;
 
 use App\Rules\UniqueNameAndVulnerabilityRule;
 use Illuminate\Contracts\Validation\ValidationRule;

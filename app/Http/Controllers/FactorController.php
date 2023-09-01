@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Vulnerability;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Vulnerability\StoreFactorRequest;
-use App\Http\Requests\Vulnerability\UpdateFactorRequest;
+use App\Http\Requests\StoreFactorRequest;
+use App\Http\Requests\UpdateFactorRequest;
 use App\Models\Factor;
 
 class FactorController extends Controller

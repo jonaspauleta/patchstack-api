@@ -5,11 +5,13 @@ I'm not happy with the way I implemented the Seeder.
 
 I am not happy with the way I have saved Vulnerabilities' description in the database.
 
-I taught about using Actions, Repositiories, Services and DTOs but it would have incremented the complexity of the project, but having a bigger project, I would definitely do it.
+I taught about using Actions, Repositories, Services and DTOs, but it would have incremented the complexity of the project, but having a bigger project, I would definitely do it.
 
 I taught about implementing pagination and query filters but, as the situation above, it would have increased the complexity, anyway, that is something I would do on a bigger project.
 
-I haven't done TDD (Test Driven Development) because I am not 100% confortable with Testing yet, however, if I had more time I would have done Tests, even if not using TDD.
+I haven't done TDD (Test Driven Development) because I am not 100% conformable with Testing yet, however, if I had more time I would have done Tests, even if not using TDD.
+
+Activity Logs, Authorization, Full Text Search and OpenAPI could also have been implemented.
 
 ## Setup Instructions
 

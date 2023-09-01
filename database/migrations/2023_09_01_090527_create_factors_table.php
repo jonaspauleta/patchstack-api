@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vulnerabilities', function (Blueprint $table) {
+        Schema::create('factors', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('title');
-            $table->text('overview');
-            $table->text('description');
+            $table->string('name');
+            $table->float('value');
+            $table->foreignId('vulnerability_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vulnerabilities');
+        Schema::dropIfExists('factors');
     }
 };

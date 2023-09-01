@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="flex items-center justify-center h-screen bg-[#17191e]">
-            <img src="/logo.svg" alt="Patchstack Logo" class="w-2/3">
+            <img src="/storage/logo.svg" alt="Patchstack Logo" class="w-2/3">
         </div>
     </body>
 </html>

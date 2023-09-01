@@ -2,31 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
             return response()->json([
-                'user' => $user,
-                'authorization' => [
-                    'token' => $user->createToken('spa')->plainTextToken,
-                    'type' => 'bearer',
-                ],
+                'user' => new UserResource($user),
+                'token' => $user->createToken('spa')->plainTextToken,
             ]);
         }
 
@@ -35,14 +27,8 @@ class AuthController extends Controller
         ], 401);
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -51,7 +37,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'User created successfully',
-            'user' => $user,
+            'user' => new UserResource($user),
         ]);
     }
 

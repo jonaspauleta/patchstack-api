@@ -26,6 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/user', UserController::class)->name('user');
 
+});
+
+Route::scopeBindings()->group(function () {
     Route::apiResource('/vulnerabilities', VulnerabilityController::class);
     Route::apiResource('/vulnerabilities/{vulnerability}/factors', FactorController::class);
 });

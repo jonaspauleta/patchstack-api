@@ -26,11 +26,6 @@ class StoreFactorRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'value' => 'required|numeric',
-            'vulnerability_id' => [
-                'required',
-                'exists:vulnerabilities,id',
-                new UniqueNameAndVulnerabilityRule(),
-            ],
         ];
     }
 }

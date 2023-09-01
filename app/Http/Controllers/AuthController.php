@@ -6,25 +6,19 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(LoginRequest $request)
+    public function store(LoginRequest $request)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $user = Auth::user();
+        $request->authenticate();
 
-            return response()->json([
-                'user' => new UserResource($user),
-                'token' => $user->createToken('spa')->plainTextToken,
-            ]);
-        }
+        $request->session()->regenerate();
 
-        return response()->json([
-            'message' => 'Invalid credentials',
-        ], 401);
+        return response()->noContent();
     }
 
     public function register(RegisterRequest $request)
@@ -41,12 +35,14 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    public function destroy(Request $request)
     {
-        Auth::user()->tokens()->delete();
+        Auth::guard('web')->logout();
 
-        return response()->json([
-            'message' => 'Successfully logged out',
-        ]);
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->noContent();
     }
 }

@@ -2,10 +2,16 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
 
+/**
+ * Class User
+ *
+ * @mixin User
+ * */
 class RegisterRequest extends FormRequest
 {
     /**

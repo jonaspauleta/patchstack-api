@@ -6,6 +6,8 @@
 
         <title>Patchstack API</title>
 
+        <link rel="shortcut icon" href="{{ asset('favicon.ico')}}" type="image/x-icon">
+
         @vite('resources/css/app.css')
     </head>
     <body>

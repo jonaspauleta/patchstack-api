@@ -18,7 +18,7 @@ Activity Logs, Authorization, Full Text Search and OpenAPI could also have been 
 ### Install dependencies
 ```
 composer install
-npm install
+yarn
 ```
 
 ### Create .env file from .env.example
@@ -43,7 +43,7 @@ php artisan migrate:fresh --seed
 
 ### Build assets
 ```
-npm run build
+yarn build
 ```
 
 ### Run server

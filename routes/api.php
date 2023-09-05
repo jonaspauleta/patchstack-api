@@ -28,6 +28,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
     Route::get('/user', UserController::class)->name('user');
+    Route::get('/user', UserController::class)->name('user');
 });
 
 Route::scopeBindings()->group(function () {

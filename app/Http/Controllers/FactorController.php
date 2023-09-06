@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FactorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Vulnerability $vulnerability): Response
     {
         return response()->json(
@@ -22,9 +19,6 @@ class FactorController extends Controller
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreFactorRequest $request, Vulnerability $vulnerability): Response
     {
         $factor = $vulnerability->factors()->create(
@@ -37,9 +31,6 @@ class FactorController extends Controller
         );
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Vulnerability $vulnerability, Factor $factor): Response
     {
         return response()->json(
@@ -48,10 +39,7 @@ class FactorController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateFactorRequest $request, Vulnerability $vulnerability, Factor $factor)
+    public function update(UpdateFactorRequest $request, Vulnerability $vulnerability, Factor $factor): Response
     {
         $factor = $factor->update(
             $request->validated()
@@ -63,10 +51,7 @@ class FactorController extends Controller
         );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Vulnerability $vulnerability, Factor $factor)
+    public function destroy(Vulnerability $vulnerability, Factor $factor): Response
     {
         $factor->delete();
 

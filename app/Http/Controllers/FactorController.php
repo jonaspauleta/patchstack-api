@@ -41,7 +41,7 @@ class FactorController extends Controller
 
     public function update(UpdateFactorRequest $request, Vulnerability $vulnerability, Factor $factor): Response
     {
-        $factor = $factor->update(
+        $factor->update(
             $request->validated()
         );
 

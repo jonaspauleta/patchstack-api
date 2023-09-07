@@ -5,12 +5,22 @@ namespace App\Http\Resources;
 use App\Models\Factor;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use OpenApi\Annotations as OA;
 
 /**
  * Class FactorResource
  *
  * @mixin Factor
  * */
+/**
+ * @OA\Schema(
+ *     schema="FactorResource",
+ *     type="object",
+ *     @OA\Property(property="id", type="integer", example="1"),
+ *     @OA\Property(property="name", type="string", example="Factor Name"),
+ *     @OA\Property(property="value", type="float", example="5.5"),
+ * )
+ */
 class FactorResource extends JsonResource
 {
     /**

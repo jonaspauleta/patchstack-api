@@ -1,0 +1,916 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Patchstack API",
+        "description": "CRUD API for Vulnerabilities",
+        "contact": {
+            "email": "jonaspauleta2@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api": {
+            "get": {
+                "tags": [
+                    "API"
+                ],
+                "summary": "Get API status",
+                "operationId": "a65718f3503ef5f3ac88bfa285e7fee8",
+                "responses": {
+                    "200": {
+                        "description": "API status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "timestamp": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User login",
+                "operationId": "e1fccb4a316036f358690b8f6a2ec1d6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        },
+                                        "authorization": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "your-access-token"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "bearer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User logout",
+                "operationId": "354ff1ac39aafc4cb1372b7725e0d739",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get authenticated user details",
+                "operationId": "dee96ad97c6e4657a293757a07f094fa",
+                "responses": {
+                    "200": {
+                        "description": "User details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user password",
+                "operationId": "cb89ccb84ba54f89da3956fcced04a54",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "old_password"
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "new_password"
+                                    },
+                                    "new_password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "new_password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Register a new user",
+                "operationId": "4738a2e4c7ff3bcd94d655a07ff7e128",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Test User"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vulnerabilities/{vulnerability}/factors": {
+            "get": {
+                "tags": [
+                    "Factor"
+                ],
+                "summary": "Get factors for a vulnerability",
+                "operationId": "7838a5c49d11e87d56043a9fa52faa49",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of factors for the vulnerability",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FactorResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Factor"
+                ],
+                "summary": "Create a new factor for a vulnerability",
+                "operationId": "662e00331ff2ef1da695ac443b292fea",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Factor Name"
+                                    },
+                                    "value": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "5.5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Factor created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FactorResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vulnerabilities/{vulnerability}/factors/batch": {
+            "post": {
+                "tags": [
+                    "Factor"
+                ],
+                "summary": "Create multiple factors for a vulnerability in a batch",
+                "operationId": "753e500c15fdf36790691dc5d155e937",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "factors": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Factor Name"
+                                                },
+                                                "value": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "5.5"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Factors created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Factors created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error creating factors"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vulnerabilities/{vulnerability}/factors/{factor}": {
+            "get": {
+                "tags": [
+                    "Factor"
+                ],
+                "summary": "Get a single factor for a vulnerability",
+                "operationId": "4630bed94f06df4d4078ec3931d456ef",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "factor",
+                        "in": "path",
+                        "description": "ID of the factor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Factor details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FactorResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Factor"
+                ],
+                "summary": "Update a factor for a vulnerability",
+                "operationId": "8cf71d1825e80d98d2b367a46178c9fb",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "factor",
+                        "in": "path",
+                        "description": "ID of the factor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Updated Factor Name"
+                                    },
+                                    "value": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "5.5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Factor updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FactorResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Factor"
+                ],
+                "summary": "Delete a factor for a vulnerability",
+                "operationId": "3a02041300d42c147efd0cc26695fb3f",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "factor",
+                        "in": "path",
+                        "description": "ID of the factor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Factor deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Factor deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vulnerabilities": {
+            "get": {
+                "tags": [
+                    "Vulnerability"
+                ],
+                "summary": "Get a list of vulnerabilities",
+                "operationId": "21f944f289ca20357cf0d717dd0ecda2",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "Filter vulnerabilities by user ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of vulnerabilities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/VulnerabilityResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Vulnerability"
+                ],
+                "summary": "Create a new vulnerability",
+                "operationId": "5461208eaac14d049a489efb0d1a4002",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "VUL-001"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Security Vulnerability"
+                                    },
+                                    "overview": {
+                                        "type": "string",
+                                        "example": "A brief overview"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Full description"
+                                    },
+                                    "image": {
+                                        "description": "Optional image file",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vulnerability created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VulnerabilityResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vulnerabilities/{vulnerability}": {
+            "get": {
+                "tags": [
+                    "Vulnerability"
+                ],
+                "summary": "Get a single vulnerability",
+                "operationId": "34238f1bc59701da709d437861405e83",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vulnerability details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VulnerabilityResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Vulnerability"
+                ],
+                "summary": "Update a vulnerability",
+                "operationId": "a1e8f99e8f0ce4bb2a4ea279952e0bda",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "VUL-001"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Updated Title"
+                                    },
+                                    "overview": {
+                                        "type": "string",
+                                        "example": "Updated Overview"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Updated Description"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Vulnerability updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VulnerabilityResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Vulnerability"
+                ],
+                "summary": "Delete a vulnerability",
+                "operationId": "983a6e3396dc35673ae9ecdd1264c6d2",
+                "parameters": [
+                    {
+                        "name": "vulnerability",
+                        "in": "path",
+                        "description": "ID of the vulnerability",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vulnerability deleted successfully"
+                    },
+                    "403": {
+                        "description": "You are not authorized to delete this vulnerability"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "FactorResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Factor Name"
+                    },
+                    "value": {
+                        "type": "number",
+                        "format": "float",
+                        "example": "5.5"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Test User"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "test@example.com"
+                    },
+                    "is_admin": {
+                        "type": "boolean",
+                        "example": "true"
+                    }
+                },
+                "type": "object"
+            },
+            "VulnerabilityResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "VUL-001"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Security Vulnerability"
+                    },
+                    "overview": {
+                        "type": "string",
+                        "example": "A brief overview"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Full description"
+                    },
+                    "image_url": {
+                        "type": "string",
+                        "example": "/storage/image.jpg"
+                    },
+                    "factors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/FactorResource"
+                        }
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/UserResource"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

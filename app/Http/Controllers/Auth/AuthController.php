@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,19 +24,25 @@ class AuthController extends Controller
      *     path="/api/login",
      *     summary="User login",
      *     tags={"Authentication"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="email", type="string", example="test@example.com"),
      *             @OA\Property(property="password", type="string", example="password"),
      *         ),
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Login successful",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="user", ref="#/components/schemas/UserResource"),
      *             @OA\Property(property="authorization", type="object",
      *                 @OA\Property(property="token", type="string", example="your-access-token"),
@@ -45,6 +50,7 @@ class AuthController extends Controller
      *             ),
      *         ),
      *     ),
+     *
      *     @OA\Response(
      *         response=401,
      *         description="Invalid credentials",
@@ -53,7 +59,7 @@ class AuthController extends Controller
      */
     public function store(LoginRequest $request): Response
     {
-        if (!Auth::attempt($request->all())) {
+        if (! Auth::attempt($request->all())) {
             return response()->json([
                 'message' => 'Invalid credentials',
             ], Response::HTTP_UNAUTHORIZED);
@@ -76,6 +82,7 @@ class AuthController extends Controller
      *     summary="User logout",
      *     tags={"Authentication"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successfully logged out",

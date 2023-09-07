@@ -20,9 +20,11 @@ class UserController extends Controller
      *     summary="Get authenticated user details",
      *     tags={"User"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User details",
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             ref="#/components/schemas/UserResource",
@@ -43,19 +45,24 @@ class UserController extends Controller
      *     path="/api/register",
      *     summary="Register a new user",
      *     tags={"User"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="name", type="string", example="Test User"),
      *             @OA\Property(property="email", type="string", format="email", example="test@example.com"),
      *             @OA\Property(property="password", type="string", format="password", example="password"),
      *             @OA\Property(property="password_confirmation", type="string", format="password", example="password"),
      *         ),
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="User registered successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             ref="#/components/schemas/UserResource",
@@ -83,18 +90,23 @@ class UserController extends Controller
      *     summary="Update user password",
      *     tags={"User"},
      *     security={{"bearerAuth": {}}},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="old_password", type="string", format="password", example="old_password"),
      *             @OA\Property(property="new_password", type="string", format="password", example="new_password"),
      *             @OA\Property(property="new_password_confirmation", type="string", format="password", example="new_password"),
      *         ),
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Password updated successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             ref="#/components/schemas/UserResource",

@@ -9,8 +9,7 @@ class KeysIn implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param string[] $values
-     *
+     * @param  string[]  $values
      * @return void
      */
     public function __construct(
@@ -21,10 +20,8 @@ class KeysIn implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param string $attribute
-     * @param mixed $value
-     *
-     * @return bool
+     * @param  string  $attribute
+     * @param  mixed  $value
      */
     public function passes($attribute, $value): bool
     {
@@ -36,11 +33,9 @@ class KeysIn implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
     public function message(): string
     {
-        return 'The selected :attribute key is invalid. Valid keys are: ' . implode(', ', $this->values);
+        return 'The selected :attribute key is invalid. Valid keys are: '.implode(', ', $this->values);
     }
 }

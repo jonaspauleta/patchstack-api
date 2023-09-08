@@ -11,10 +11,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 class BaseRepository
 {
     /**
-     * @param PaginationRequest $request
-     * @param QueryBuilder|Builder<Model> $queryBuilder
-     *
-     * @return Paginator
+     * @param  QueryBuilder|Builder<Model>  $queryBuilder
      */
     public function paginate(
         PaginationRequest $request,

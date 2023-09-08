@@ -4,14 +4,14 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class VulnerabilityPolicy
+class FactorPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(): bool
     {
-        return false;
+        return true;
     }
 
     /**

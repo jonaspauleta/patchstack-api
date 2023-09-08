@@ -19,7 +19,7 @@ class DTO
 
         return collect(value: $properties)
             ->map(callback: fn (ReflectionProperty $property) => $property->getName())
-            ->filter(callback: fn (string $property) => !($this->{$property} instanceof None))
+            ->filter(callback: fn (string $property) => ! ($this->{$property} instanceof None))
             ->mapWithKeys(callback: function (string $property) {
                 $key = Str::snake(value: $property);
 

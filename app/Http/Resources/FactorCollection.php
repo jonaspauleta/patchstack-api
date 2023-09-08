@@ -11,11 +11,14 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     schema="FactorCollection",
  *     type="object",
+ *
  *     @OA\Property(
  *         property="data",
  *         type="array",
+ *
  *         @OA\Items(ref="#/components/schemas/FactorResource")
  *     ),
+ *
  *     @OA\Property(
  *         property="pagination",
  *         type="object",
@@ -44,11 +47,14 @@ class FactorCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'data' => $this->collection->map(function (FactorResource $factorResource) use($request) {
+        $data = [
+            'data' => $this->collection->map(function (FactorResource $factorResource) use ($request) {
                 return $factorResource->toArray($request);
             }),
-            'pagination' => [
+        ];
+
+        if ($this->resource instanceof LengthAwarePaginator) {
+            $data['pagination'] = [
                 'total' => $this->total(),
                 'count' => $this->count(),
                 'per_page' => $this->perPage(),
@@ -56,7 +62,9 @@ class FactorCollection extends ResourceCollection
                 'total_pages' => $this->lastPage(),
                 'next_page_url' => $this->nextPageUrl(),
                 'prev_page_url' => $this->previousPageUrl(),
-            ],
-        ];
+            ];
+        }
+
+        return $data;
     }
 }

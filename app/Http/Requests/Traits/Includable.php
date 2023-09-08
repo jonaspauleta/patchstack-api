@@ -7,8 +7,7 @@ use Illuminate\Validation\Rule;
 trait Includable
 {
     /**
-     * @param string[] $includes
-     *
+     * @param  string[]  $includes
      * @return array<string, array<string|Rule>>
      */
     private function allowedIncludes(array $includes): array

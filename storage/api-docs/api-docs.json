@@ -75,7 +75,7 @@
                                 "schema": {
                                     "properties": {
                                         "user": {
-                                            "$ref": "#/components/schemas/UserResource"
+                                            "$ref": "App\\Http\\Resources\\UserResource"
                                         },
                                         "authorization": {
                                             "properties": {
@@ -134,7 +134,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/UserResource"
+                                    "$ref": "App\\Http\\Resources\\UserResource"
                                 }
                             }
                         }
@@ -185,7 +185,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/UserResource"
+                                    "$ref": "App\\Http\\Resources\\UserResource"
                                 }
                             }
                         }
@@ -242,7 +242,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/UserResource"
+                                    "$ref": "App\\Http\\Resources\\UserResource"
                                 }
                             }
                         }
@@ -266,6 +266,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -276,8 +285,24 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/FactorResource"
+                                        "$ref": "App\\Http\\Resources\\FactorCollection"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to view factors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to view factors"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -333,7 +358,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/FactorResource"
+                                    "$ref": "App\\Http\\Resources\\FactorResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to create factors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create factors"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -425,6 +466,22 @@
                                 }
                             }
                         }
+                    },
+                    "403": {
+                        "description": "Not authorized to create factors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create factors"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -467,7 +524,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/FactorResource"
+                                    "$ref": "App\\Http\\Resources\\FactorResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to view factors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to view factors"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -532,7 +605,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/FactorResource"
+                                    "$ref": "App\\Http\\Resources\\FactorResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to update factors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update factors"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -586,6 +675,22 @@
                                 }
                             }
                         }
+                    },
+                    "403": {
+                        "description": "Not authorized to delete factors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete factors"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -604,10 +709,40 @@
                 "operationId": "21f944f289ca20357cf0d717dd0ecda2",
                 "parameters": [
                     {
-                        "name": "user_id",
+                        "name": "page",
                         "in": "query",
-                        "description": "Filter vulnerabilities by user ID",
+                        "description": "Page number",
                         "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "include",
+                        "in": "query",
+                        "description": "Too include the relation of the factors",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "factors",
+                                "user"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filter[user_id]",
+                        "in": "query",
+                        "description": "Filter by user ID",
                         "schema": {
                             "type": "integer"
                         }
@@ -621,8 +756,24 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/VulnerabilityResource"
+                                        "$ref": "App\\Http\\Resources\\VulnerabilityCollection"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to view vulnerabilities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to view vulnerabilities"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -679,7 +830,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/VulnerabilityResource"
+                                    "$ref": "App\\Http\\Resources\\VulnerabilityResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to create vulnerabilities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to create vulnerabilities"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -716,7 +883,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/VulnerabilityResource"
+                                    "$ref": "App\\Http\\Resources\\VulnerabilityResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to view vulnerabilities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to view vulnerabilities"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -779,7 +962,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/VulnerabilityResource"
+                                    "$ref": "App\\Http\\Resources\\VulnerabilityResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to update vulnerabilities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to update vulnerabilities"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -813,7 +1012,20 @@
                         "description": "Vulnerability deleted successfully"
                     },
                     "403": {
-                        "description": "You are not authorized to delete this vulnerability"
+                        "description": "Not authorized to delete vulnerabilities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not authorized to delete vulnerabilities"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -825,86 +1037,6 @@
         }
     },
     "components": {
-        "schemas": {
-            "FactorResource": {
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "name": {
-                        "type": "string",
-                        "example": "Factor Name"
-                    },
-                    "value": {
-                        "type": "number",
-                        "format": "float",
-                        "example": "5.5"
-                    }
-                },
-                "type": "object"
-            },
-            "UserResource": {
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "name": {
-                        "type": "string",
-                        "example": "Test User"
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "example": "test@example.com"
-                    },
-                    "is_admin": {
-                        "type": "boolean",
-                        "example": "true"
-                    }
-                },
-                "type": "object"
-            },
-            "VulnerabilityResource": {
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "code": {
-                        "type": "string",
-                        "example": "VUL-001"
-                    },
-                    "title": {
-                        "type": "string",
-                        "example": "Security Vulnerability"
-                    },
-                    "overview": {
-                        "type": "string",
-                        "example": "A brief overview"
-                    },
-                    "description": {
-                        "type": "string",
-                        "example": "Full description"
-                    },
-                    "image_url": {
-                        "type": "string",
-                        "example": "/storage/image.jpg"
-                    },
-                    "factors": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/FactorResource"
-                        }
-                    },
-                    "user": {
-                        "$ref": "#/components/schemas/UserResource"
-                    }
-                },
-                "type": "object"
-            }
-        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",

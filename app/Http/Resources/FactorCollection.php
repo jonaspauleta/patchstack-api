@@ -16,7 +16,7 @@ use OpenApi\Annotations as OA;
  *         property="data",
  *         type="array",
  *
- *         @OA\Items(ref="#/components/schemas/FactorResource")
+ *         @OA\Items(ref="App\Http\Resources\FactorResource")
  *     ),
  *
  *     @OA\Property(

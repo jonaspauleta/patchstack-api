@@ -27,7 +27,7 @@ class UserController extends Controller
      *
      *         @OA\JsonContent(
      *             type="object",
-     *             ref="#/components/schemas/UserResource",
+     *             ref="App\Http\Resources\UserResource",
      *         ),
      *     ),
      * )
@@ -65,7 +65,7 @@ class UserController extends Controller
      *
      *         @OA\JsonContent(
      *             type="object",
-     *             ref="#/components/schemas/UserResource",
+     *             ref="App\Http\Resources\UserResource",
      *         ),
      *     ),
      * )
@@ -109,7 +109,7 @@ class UserController extends Controller
      *
      *         @OA\JsonContent(
      *             type="object",
-     *             ref="#/components/schemas/UserResource",
+     *             ref="App\Http\Resources\UserResource",
      *         ),
      *     ),
      * )

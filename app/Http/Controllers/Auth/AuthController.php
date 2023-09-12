@@ -43,7 +43,7 @@ class AuthController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *
-     *             @OA\Property(property="user", ref="#/components/schemas/UserResource"),
+     *             @OA\Property(property="user", ref="App\Http\Resources\UserResource"),
      *             @OA\Property(property="authorization", type="object",
      *                 @OA\Property(property="token", type="string", example="your-access-token"),
      *                 @OA\Property(property="type", type="string", example="bearer"),

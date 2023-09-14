@@ -26,4 +26,3 @@ it('can retrieve the vulnerability associated with a factor', function () {
     expect($associatedVulnerability->id)->toBe($vulnerability->id);
     expect($associatedVulnerability->code)->toBe($vulnerability->code);
 });
-

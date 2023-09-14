@@ -2,9 +2,10 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class KeysIn implements Rule
+class KeysIn implements ValidationRule
 {
     /**
      * Create a new rule instance.
@@ -18,24 +19,12 @@ class KeysIn implements Rule
     }
 
     /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * Run the validation rule.
      */
-    public function passes($attribute, $value): bool
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $allowedKeys = array_flip($this->values);
-        $unknownKeys = array_diff_key($value, $allowedKeys);
-
-        return count($unknownKeys) === 0;
-    }
-
-    /**
-     * Get the validation error message.
-     */
-    public function message(): string
-    {
-        return 'The selected :attribute key is invalid. Valid keys are: '.implode(', ', $this->values);
+        if (count(array_diff_key($value, array_flip($this->values))) !== 0) {
+            $fail('The selected :attribute key is invalid. Valid keys are: '.implode(', ', $this->values));
+        }
     }
 }

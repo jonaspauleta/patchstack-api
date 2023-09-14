@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Auth;
 
 use App\Models\User;
+use App\Rules\OldPasswordCheck;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 
 /**
@@ -31,7 +30,7 @@ class UpdateUserPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'old_password' => ['required', Rule::in([Auth::user()->password])],
+            'old_password' => ['required', new OldPasswordCheck],
             'new_password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }

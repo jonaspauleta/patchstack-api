@@ -20,7 +20,7 @@ class FactorFactory extends Factory
         $vulnerability = Vulnerability::factory()->create();
 
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->unique()->word,
             'value' => $this->faker->randomFloat(2, 0, 100),
             'vulnerability_id' => $vulnerability->id,
         ];

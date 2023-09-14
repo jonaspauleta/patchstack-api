@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Factor extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'value',

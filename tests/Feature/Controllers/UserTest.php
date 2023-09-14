@@ -4,8 +4,8 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
 it('can get authenticated user details', function () {
-    $this->user = User::factory()->create();
-    Sanctum::actingAs($this->user);
+    $user = User::factory()->create();
+    Sanctum::actingAs($user);
 
     $response = $this->get('/api/user');
 
@@ -27,7 +27,6 @@ it('can register a new user', function () {
 
 it('can update user password', function () {
     $user = User::factory()->create();
-
     Sanctum::actingAs($user);
 
     $requestData = [
